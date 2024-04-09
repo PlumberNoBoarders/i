@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useRef} from "react";
 import MagicDropzone from "react-magic-dropzone";
 // reactstrap components
 import {
@@ -22,22 +22,89 @@ import DefaultFooter from "../../components/Footers/DefaultFooter.js";
 function LandingPage() {
   const [modalIopen, setModalIopen] = React.useState(false);
   const [login, setLogin] = React.useState(true);
-  const [proof,set]=useState({
+  const [user,setUser]=useState({})
+  const [videoDurationExceeded,setVideoDurationExceeded]=useState(false)
+  const [gihamyaVideoFile,setGihamyaVideoFile]=React.useState('')
+  const checkVideoDuration=useRef(null);
+  const [proof,setProof]=useState({
     value: "video/mp4",
     previews: [].slice(0,1),
   })
   const [modalIopenOne, setModalIopenOne] = React.useState(false);
   const [gihamya, setGihamya] = React.useState(false);
   const [language, setLanguage] = React.useState("Kinya");
+  function blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    })
+  }
   const onDropBoq= (accepted, rejected, links) => {
     accepted = accepted.map((v) => v.preview);
     var newPreviews = [...proof.previews, ...accepted, ...links];
-    set({
+    setProof({
       previews: newPreviews,
     });
+    setTimeout(()=>{
+      if(checkVideoDuration.current.duration > 15){
+        setVideoDurationExceeded(!videoDurationExceeded)
+        window.alert("The video's duration exceeds 15 seconds , It will not be uploaded")
+       }
+      if(!videoDurationExceeded){
+        newPreviews.map((v)=>{
+          fetch(v).then(function(response) {
+            return response.blob();
+          }).then(function(myBlob) {
+          var file = new File([myBlob], "name");
+          blobToBase64(file).then((e)=>{
+            setGihamyaVideoFile(e)
+           })
+        
+          });
+        })
+       }
+    },100)
   };
+  const finalGihamya= async()=>{
+   const data ={"Video":gihamyaVideoFile,'userName':user.userName,'phoneNumber':user.phoneNumber}
+
+    const response = await fetch(`http://localhost:3000/gihamya`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "omit", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json"
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+   const Responce = await response.json();
+  }
   
   React.useEffect(() => {
+    const FetchUser=(async ()=>{
+      const response = await fetch(`http://localhost:3000/user`, {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'include', // include, *same-origin, omit
+        headers: {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Credentials":true
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      });
+      const userResponce = await response.json();
+      if(userResponce.loginStatus!=='not logged In'){
+         setLogin(true);
+         setUser(userResponce)
+      }
+   
+     })()
     document.body.classList.add("landing-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");
@@ -59,13 +126,30 @@ function LandingPage() {
               <Row>
                 <Col className="ml-auto mr-auto text-center" md="8">
                   <h2 className="title">
-                    {language == "Eng" ? "How do you start?" : "Bikorwa bite?"}
+                    {language == "Eng" ? "Where do you start from?" : "Bikorwa bite?"}
                   </h2>
-                  <h5 className="description">
-                    {language == "Eng"
-                      ? 'Choose one of the adverts below and post them on any socail-media platform you have then after a day use the record proof button and record your screen following the record "screen guidline" (check a video below) '
-                      : "Hitamo ifoto imwe murizo zikurira ikigice nuranginza uziposting kuri social media platform yawe yariyoyose nyuma y' umunsi uduhe gihamya ko wabikoze . Reba videwo ikurikira umenye Uko gihamya itangwa . Murakoze "}
-                  </h5>
+                  <div
+              style={
+                window.innerWidth > 900
+                  ? {
+                      width: "40%",
+                      textAlign:'center',
+                      aspectRatio: "1/1.5",
+                      marginLeft:'30%',
+                      backgroundColor: "black",
+                      marginBottom: "4%",
+                    }
+                  : {
+                      width: "80%",
+                      marginBottom: "10%",
+                      aspectRatio: "1/1.5",
+                      backgroundColor: "black",
+                    }
+              }
+              className="w3-round"
+            >
+              <p>Hello</p>
+            </div>
                 </Col>
               </Row>
             </Container>
@@ -410,6 +494,7 @@ function LandingPage() {
                       muted
                       autoPlay
                       key={i}
+                      ref={checkVideoDuration}
                       className="w3-animate-opacity"
                       alt=""
                       style={window.innerWidth > 900?{
@@ -436,11 +521,11 @@ function LandingPage() {
           </div>
           {proof.previews.length > 0?
           <div>
-          <Button   style={{backgroundColor:"#0274A8"}} size="lg" color="info" className="w3-animate-opacity" type="button">
+          <Button onClick={finalGihamya}   style={{backgroundColor:"#0274A8"}} size="lg" color="info" className="w3-animate-opacity" type="button">
              <b>{language=='Eng'?"Submit your Proof":"Tanga Gihamya"}  </b>
           </Button>
       
-          <Button onClick={()=>set({value:"video/mp4",previews:[]})}   style={{backgroundColor:"#a80202"}} size="lg" color="info" className="w3-animate-opacity" type="button">
+          <Button onClick={()=>setProof({value:"video/mp4",previews:[]})}   style={{backgroundColor:"#a80202"}} size="lg" color="info" className="w3-animate-opacity" type="button">
              <b>{language=='Eng'?"Remove your video":"Kuraho videwo  watanze"}  </b>
           </Button>
           </div>

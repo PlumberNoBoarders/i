@@ -6,8 +6,6 @@ import '../w3.css'
 import BasicElements from "./index-sections/BasicElements.js";
 import Tabs from "./index-sections/Tabs.js";
 import Carousel from "./index-sections/Carousel.js";
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert'
 import TangaUbutumwa from "./index-sections/TangaUbutumwa";
 import AccountAvatar from "./index-sections/AccountAvatar.js";
 
