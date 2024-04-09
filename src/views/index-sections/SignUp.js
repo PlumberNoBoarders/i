@@ -1,8 +1,6 @@
 import React from "react";
 import { TextField,InputAdornment } from "@mui/material";
 import { createTheme, ThemeProvider,IconButton } from "@mui/material";
-import Visibility from "@mui/.icons-material-YqzbhoCZ/Visibility";
-import VisibilityOff from "@mui/.icons-material-YqzbhoCZ/VisibilityOff";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import {
   Button,
@@ -148,9 +146,9 @@ function SignUp(language) {
                               onMouseDown={handleMouseDownPassword}
                             >
                               {showPassword ? (
-                                <Visibility />
+                               <></>
                               ) : (
-                                <VisibilityOff />
+                               <></>
                               )}
                             </IconButton>
                           </InputAdornment>
@@ -183,9 +181,9 @@ function SignUp(language) {
                               onMouseDown={handleMouseDownCPassword}
                             >
                               {showCPassword ? (
-                                <Visibility />
+                               <></>
                               ) : (
-                                <VisibilityOff />
+                                <></>
                               )}
                             </IconButton>
                           </InputAdornment>
