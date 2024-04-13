@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/plumbum/static/css/main.3675918e.css",
+    "main.js": "/plumbum/static/js/main.09d2467f.js",
+    "static/media/bg1.jpg": "/plumbum/static/media/bg1.71a28027225b8ae945bb.jpg",
+    "static/media/bg11.jpg": "/plumbum/static/media/bg11.c6c21bd88aee67067eb6.jpg",
+    "static/media/bg4.jpg": "/plumbum/static/media/bg4.01ad1068585185f35555.jpg",
+    "static/media/bg3.jpg": "/plumbum/static/media/bg3.850b808854f295b2c596.jpg",
+    "static/media/login.jpg": "/plumbum/static/media/login.ab931d77bfe905914456.jpg",
+    "static/media/header.jpg": "/plumbum/static/media/header.bab4918fa7eebc064c87.jpg",
+    "static/media/damascene.png": "/plumbum/static/media/damascene.ee76d495f310dd8ae565.png",
+    "static/media/bg5.jpg": "/plumbum/static/media/bg5.d60a95eb31d6400f802f.jpg",
+    "static/media/waterleak.png": "/plumbum/static/media/waterleak.8fae86a7de2ae7a82c26.png",
+    "static/media/growth.png": "/plumbum/static/media/growth.667a83cc363997d97df9.png",
+    "static/media/fire-fighting-water-supply.webp": "/plumbum/static/media/fire-fighting-water-supply.deb0c5969b9ca452adcc.webp",
+    "static/media/warning.png": "/plumbum/static/media/warning.b6ac8207a52b3ca112ab.png",
+    "static/media/Domestic-gas-installations3.webp": "/plumbum/static/media/Domestic-gas-installations3.eccdcef0b026c2518fd1.webp",
+    "static/media/nucleo-outline.eot": "/plumbum/static/media/nucleo-outline.56814a6b7240045e1494.eot",
+    "static/media/nucleo-outline.ttf": "/plumbum/static/media/nucleo-outline.1102ed9b2d16dccdec05.ttf",
+    "static/media/now-logo.png": "/plumbum/static/media/now-logo.e8958ace438d26717745.png",
+    "static/media/LongLogo.png": "/plumbum/static/media/LongLogo.80df47370c93fe4e59f4.png",
+    "static/media/nucleo-outline.woff": "/plumbum/static/media/nucleo-outline.1a1036e643f97457ec5f.woff",
+    "static/media/nucleo-outline.woff2": "/plumbum/static/media/nucleo-outline.802141dd0dcc63b21cbb.woff2",
+    "static/media/default-avatar.png": "/plumbum/static/media/default-avatar.1084e4c1b5040cff7f92.png",
+    "index.html": "/plumbum/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.3675918e.css",
+    "static/js/main.09d2467f.js"
+  ]
+}
