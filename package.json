@@ -1,6 +1,6 @@
 {
-  "name": "plumberswithnoborders",
   "homepage": "http://PlumberNoBoarders.github.io/plumbum",
+  "name": "plumberswithnoborders",
   "version": "1.5.2",
   "private": true,
   "dependencies": {
