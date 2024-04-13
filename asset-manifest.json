@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/plumbum/static/css/main.3675918e.css",
-    "main.js": "/plumbum/static/js/main.09d2467f.js",
+    "main.js": "/plumbum/static/js/main.3df958b9.js",
     "static/media/bg1.jpg": "/plumbum/static/media/bg1.71a28027225b8ae945bb.jpg",
     "static/media/bg11.jpg": "/plumbum/static/media/bg11.c6c21bd88aee67067eb6.jpg",
     "static/media/bg4.jpg": "/plumbum/static/media/bg4.01ad1068585185f35555.jpg",
@@ -26,6 +26,6 @@
   },
   "entrypoints": [
     "static/css/main.3675918e.css",
-    "static/js/main.09d2467f.js"
+    "static/js/main.3df958b9.js"
   ]
 }
