@@ -1,0 +1,35 @@
+Landing page
+
+Route for Checking authentication status
+Route for Having Suggestions and Complaints
+Router for Kuzuza ifishi for inquiring services
+Routes for Recieving House plans for Gukora devi
+
+
+Login page
+
+Route Reset Password
+Google Login
+From Login
+
+
+Create An account 
+
+Recieve Info and create an account
+
+
+Profile page
+
+get igishushanyo posted 
+get igishushanyo in progress
+get igishushanyo with problems
+get devi results
+get user info
+post update amakuru yawe
+post update adressi
+post update uburyo wahisemo wishyurwaho
+
+Growth program
+
+get authenticated user
+post gihamya video

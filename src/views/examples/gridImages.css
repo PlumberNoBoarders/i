@@ -1,0 +1,174 @@
+
+  .hoverToactivite{
+    position:relative;
+    margin-top:-145%;
+    margin-left:5%;
+    background-color:rgba(0, 0, 0, .6);
+    opacity: 0;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    width:90%;
+    height:93%;
+    z-index:300;
+    border-radius: 18px;
+    color:white
+  }
+  .hoverToactiviteMobile{
+    position:relative;
+    margin-top:-27%;
+    margin-left:5%;
+    background-image:linear-gradient(0deg ,rgba(0, 0, 0, 0.634) 50%,rgba(0, 0, 0,0));
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    width:90%;
+    height:15%;
+    z-index:300;
+    border-radius: 0 0 18px 18px;
+    color:white
+  }
+  .hoverToactivite i {
+    margin: 3%;
+    cursor: pointer;
+  }
+  .hoverToactiviteMobile i {
+    margin: 3%;
+    margin-top: 15%;
+    cursor: pointer;
+  }
+
+  .hoverToactivite:hover {
+   opacity: 1;
+  }
+  .container {
+    margin: 0 auto;
+    padding: 20px;
+    font: 16px/22px "Open Sans", sans-serif;
+  }
+  .panel {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    height: 160px;
+    margin: 10px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .panel a {
+    position: relative;
+    display: block;
+    padding: 12px 25px 25px 25px;
+    color: #fff;
+    text-decoration: none;
+    z-index: 2;
+  }
+  .panel a span {
+    display: block;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 96px;
+  }
+  .panel:after {
+    position: absolute;
+    font-family: FontAwesome;
+    color: #000000;
+    z-index: 1;
+    transition: all 0.5s;
+    line-height: normal;
+  }
+  .panel.post {
+    text-align: center;
+    background-color: #1d9cf0bc
+  }
+  .panel.post:after {
+    content: "\f155";
+    font-size: 200px;
+    color: #1D9BF0;
+    top: 45px;
+    right: 60px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .panel.post:hover:after {
+    top: 8px;
+  }
+  .panel.comment {
+    background-color: #0377c0;
+  }
+  .panel.comment:after {
+    content: "\f230";
+    font-size: 180px;
+    color: #036bac;
+    top: 30px;
+    right: 35px;
+  }
+  .panel.comment:hover:after {
+    top: -5px;
+  }
+  .panel.page {
+    background-color: #279824;
+  }
+  .panel.page:after {
+    content: "\f232";
+    font-size: 160px;
+    color: #238820;
+    top: 62px;
+    right: 39px;
+  }
+  .panel.page:hover:after {
+    top: 24px;
+  }
+  .panel.user {
+    background-color: #fc1c3e;
+  }
+  .panel.user:after {
+    content: "\f167";
+    font-size: 200px;
+    color: #ec0326;
+    top: 45px;
+    right: 35px;
+  }
+  .panel.user:hover:after {
+    top: 7px;
+  }
+  .panel:hover:after {
+    transition: all 0.5s;
+  }
+  
+  .panel.others {
+    background-color: rgba(9, 9, 221, 0.79);
+  }
+  .panel.others:after {
+    content: "\f06e";
+    font-size: 200px;
+    color: blue;
+    top: 45px;
+    right: 35px;
+  }
+  .panel.others:hover:after {
+    top: 7px;
+  }
+  .panel.twitter {
+    background-color: rgba(0, 0, 0, 0.79);
+  }
+  .panel.twitter:after {
+    content: "\f00d";
+    font-size: 200px;
+    color: rgb(0, 0, 0);
+    top: 45px;
+    right: 35px;
+  }
+  .panel.twitter:hover:after {
+    top: 7px;
+  }
+  .panel:hover:after {
+    transition: all 0.5s;
+  }
+  
