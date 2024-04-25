@@ -3,26 +3,27 @@ import MagicDropzone from "react-magic-dropzone";
 // reactstrap components
 import {
   Button,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
   Row,
   Col,
 } from "reactstrap";
 import "../../w3.css";
 import "./gridImages.css";
-
+import url from '../../url'
+import { Snackbar,Alert } from "@mui/material";
 // core components
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
 import LandingPageHeader from "../../components/Headers/LandingPageHeader.js";
 import DefaultFooter from "../../components/Footers/DefaultFooter.js";
 
+
 function LandingPage() {
+  const [adverts,setAdverts]=useState('')
+ 
   const [modalIopen, setModalIopen] = React.useState(false);
   const [login, setLogin] = React.useState(true);
   const [user,setUser]=useState({})
+  const [message,setMessage]=useState(<></>)
   const [videoDurationExceeded,setVideoDurationExceeded]=useState(false)
   const [gihamyaVideoFile,setGihamyaVideoFile]=React.useState('')
   const checkVideoDuration=useRef(null);
@@ -32,7 +33,22 @@ function LandingPage() {
   })
   const [modalIopenOne, setModalIopenOne] = React.useState(false);
   const [gihamya, setGihamya] = React.useState(false);
-  const [language, setLanguage] = React.useState("Kinya");
+  const  getCookie=()=> {
+    let name = 'language' + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  const [language,setLanguage]=React.useState(getCookie()==''?'Kinya':getCookie());
   function blobToBase64(blob) {
     return new Promise((resolve, _) => {
       const reader = new FileReader();
@@ -47,9 +63,11 @@ function LandingPage() {
       previews: newPreviews,
     });
     setTimeout(()=>{
+      console.log(checkVideoDuration.current.duration);
       if(checkVideoDuration.current.duration > 15){
-        setVideoDurationExceeded(!videoDurationExceeded)
-        window.alert("The video's duration exceeds 15 seconds , It will not be uploaded")
+        setVideoDurationExceeded(!videoDurationExceeded);
+        setProof({value:"video/mp4",previews:[]});
+        window.alert("The video's duration exceeds 15 seconds , It will not be uploaded");
        }
       if(!videoDurationExceeded){
         newPreviews.map((v)=>{
@@ -69,7 +87,7 @@ function LandingPage() {
   const finalGihamya= async()=>{
    const data ={"Video":gihamyaVideoFile,'userName':user.userName,'phoneNumber':user.phoneNumber}
 
-    const response = await fetch(`http://localhost:3000/gihamya`, {
+    const response = await fetch(`http://${url}/gihamya`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -82,11 +100,62 @@ function LandingPage() {
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     });
    const Responce = await response.json();
+   if(Responce['Message']=='proof uplaoded'){
+    setTimeout(()=>{setProof({value:"video/mp4",previews:[]})},200)
+    setMessage(<> 
+      <Snackbar open={true} autoHideDuration={5000} onClose={()=>{setMessage(<></>)}}>
+       <Alert
+         onClose={setMessage(<></>)}
+         severity="success"
+         variant="filled"
+         sx={{ width: '100%' }}
+       >
+       {Responce['Message']}
+       </Alert>
+     </Snackbar>
+     </>);
+  }else{
+    setMessage(<> 
+      <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+       <Alert
+         onClose={setMessage(<></>)}
+         severity="error"
+         variant="filled"
+         sx={{ width: '100%' }}
+       >
+        {'The video was not uploaded'}
+       </Alert>
+     </Snackbar>
+     </>)
+  }
   }
   
   React.useEffect(() => {
+    const FetchAdverts=(async ()=>{
+      const response = await fetch(`http://${url}/getAdvert`, {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'include', // include, *same-origin, omit
+        headers: {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Credentials":true
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      });
+      const adResponce = await response.json();
+      if(adResponce){
+        console.log(adResponce)
+        if(adResponce['adverts']){
+          setAdverts(adResponce['adverts'])
+       }
+      }
+      
+   
+     })()
     const FetchUser=(async ()=>{
-      const response = await fetch(`http://localhost:3000/user`, {
+      const response = await fetch(`http://${url}/user`, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -121,39 +190,6 @@ function LandingPage() {
       <div className="wrapper">
         <LandingPageHeader language={language} />
         <div id="First-Time">
-          <div className="section section-about-us">
-            <Container>
-              <Row>
-                <Col className="ml-auto mr-auto text-center" md="8">
-                  <h2 className="title">
-                    {language == "Eng" ? "Where do you start from?" : "Bikorwa bite?"}
-                  </h2>
-                  <div
-              style={
-                window.innerWidth > 900
-                  ? {
-                      width: "40%",
-                      textAlign:'center',
-                      aspectRatio: "1/1.5",
-                      marginLeft:'30%',
-                      backgroundColor: "black",
-                      marginBottom: "4%",
-                    }
-                  : {
-                      width: "80%",
-                      marginBottom: "10%",
-                      aspectRatio: "1/1.5",
-                      backgroundColor: "black",
-                    }
-              }
-              className="w3-round"
-            >
-              <p>Hello</p>
-            </div>
-                </Col>
-              </Row>
-            </Container>
-          </div>
           <div
             style={{
               width: "100%",
@@ -168,11 +204,11 @@ function LandingPage() {
               style={{ width: "100%", textAlign: "center" }}
               className="description"
             >
-              <p>
+              <h4 style={{marginTop:'0%'}} className="title">
                 {language == "Eng"
                   ? "This video will demonstrate how to upload proof"
                   : "Iyi video yerekana uko batatanga gihamya"}
-              </p>
+              </h4>
             </div>
             <div
               style={
@@ -182,17 +218,19 @@ function LandingPage() {
                       aspectRatio: "1/1.5",
                       backgroundColor: "black",
                       marginBottom: "4%",
+                      borderRadius:'5%'
                     }
                   : {
                       width: "80%",
                       marginBottom: "10%",
                       aspectRatio: "1/1.5",
                       backgroundColor: "black",
+                      borderRadius:'5%'
                     }
               }
               className="w3-round"
             >
-              <p>Hello</p>
+                            <iframe style={{height:'100%',width:'100%',borderRadius:'inherit'}} src="https://www.youtube.com/embed/KHtJcZgRTdc?si=fcCTSO_1BtmwKMlR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -220,6 +258,7 @@ function LandingPage() {
               ? "Choose adverts in the followings"
               : "Hitamo muraya akurikira"}
           </h4>
+         {adverts!==''?adverts.map((advert)=>(<>
           <div
             style={
               window.innerWidth > 900
@@ -235,12 +274,12 @@ function LandingPage() {
                 borderRadius: "inherit",
                 padding: "5%",
               }}
-              src="https://images.unsplash.com/photo-1533420896084-06d2bce5365f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
+              src={'http://'+url+advert.advertUrl}
             />
 
             {window.innerWidth > 900 ? (
               <div className="hoverToactivite">
-                <i className="fa-solid fa-circle-down" title="download"></i>{" "}
+                <i className="fa-solid fa-circle-down" onClick={()=>{window.open('http://'+url+advert.advertUrl)}} title="download"></i>{" "}
                 <i
                   className="fa-solid fa-tv"
                   onClick={() => setModalIopen(!modalIopen)}
@@ -249,7 +288,7 @@ function LandingPage() {
               </div>
             ) : (
               <div className="hoverToactiviteMobile">
-                <i className="fa-solid fa-circle-down" title="download"></i>{" "}
+                <i className="fa-solid fa-circle-down" onClick={()=>{window.open('http://'+url+advert.advertUrl)}}  title="download"></i>{" "}
                 <i
                   className="fa-solid fa-tv"
                   onClick={() => setModalIopen(!modalIopen)}
@@ -296,90 +335,11 @@ function LandingPage() {
                   objectFit: "cover",
                   borderRadius: "inherit",
                 }}
-                src="https://images.unsplash.com/photo-1533420896084-06d2bce5365f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
+                src={'http://'+url+advert.advertUrl}
               />
             </div>
           </div>
-          <div
-            style={
-              window.innerWidth > 900
-                ? { width: "16%", aspectRatio: "1/1.5", borderRadius: "20px" }
-                : { borderRadius: "30px", width: "80%", aspectRatio: "1/1.5" }
-            }
-          >
-            <img
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "inherit",
-                padding: "5%",
-              }}
-              src="https://images.unsplash.com/photo-1533420896084-06d2bce5365f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
-            />
-
-            {window.innerWidth > 900 ? (
-              <div className="hoverToactivite">
-                <i className="fa-solid fa-circle-down" title="download"></i>{" "}
-                <i
-                  className="fa-solid fa-tv"
-                  onClick={() => setModalIopen(!modalIopen)}
-                  title="Expand"
-                ></i>
-              </div>
-            ) : (
-              <div className="hoverToactiviteMobile">
-                <i className="fa-solid fa-circle-down" title="download"></i>{" "}
-                <i
-                  className="fa-solid fa-tv"
-                  onClick={() => setModalIopen(!modalIopen)}
-                  title="Expand"
-                ></i>
-              </div>
-            )}
-          </div>
-          <div
-            style={modalIopen ? { display: "block" } : { display: "none" }}
-            className="w3-modal"
-          >
-            <span
-              onClick={() => {
-                setModalIopen(!modalIopen);
-              }}
-              style={
-                window.innerWidth > 900
-                  ? {
-                      padding: "1%",
-                      margin: "2%",
-                      fontSize: "25px",
-                      color: "white",
-                    }
-                  : {
-                      padding: "5%",
-                      fontSize: "25px",
-                      margin: "1%",
-                      color: "white",
-                    }
-              }
-              className="w3-hover-red w3-circle"
-            >
-              <b>&times;</b>
-            </span>
-            <div
-              className="w3-modal-content w3-animate-zoom "
-              style={{ width: "50%" }}
-            >
-              <img
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  borderRadius: "inherit",
-                }}
-                src="https://images.unsplash.com/photo-1533420896084-06d2bce5365f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
-              />
-            </div>
-          </div>
+          </>)):<></>}
           <div style={modalIopenOne?{ display: "block" }:{ display:'none'}} className="w3-modal">
             <div
               className="w3-modal-content w3-animate-zoom "
@@ -410,17 +370,24 @@ function LandingPage() {
               <b>&times;</b>
             </span>
               <div className="container">
-                <div  style={window.innerWidth > 900?{width:'100%'}:{}} className="panel post">
+
+                {user&&user.Alegible_For_Growth_Program==true?<><div  style={window.innerWidth > 900?{width:'100%'}:{}} className="panel post">
                   <a >
-                    <span style={window.innerWidth < 900?{fontSize:'50px'}:{}}>5000 <b style={window.innerWidth > 900?{fontSize:'50px'}:{fontSize:'20px'}}> RWF</b></span> <span style={window.innerWidth < 900?{fontSize:'18px',marginTop:'-10%'}:{fontSize:'18px',marginTop:'-5%'}}>Available on first next month</span>
+                    <span style={window.innerWidth < 900?{fontSize:'50px'}:{}}>{user&&user.Whatsapp*170} <b style={window.innerWidth > 900?{fontSize:'50px'}:{fontSize:'20px'}}> RWF</b></span> <span style={window.innerWidth < 900?{fontSize:'18px',marginTop:'-10%'}:{fontSize:'18px',marginTop:'-5%'}}>Available on first next month</span>
                   </a>
                 </div>
-              
                 <div style={window.innerWidth > 900?{width:'100%',textAlign:'center'}:{}} className="panel page">
                   <a >
-                    <span>5 </span>tsapp status days
+                    <span>{user&&user.Whatsapp}</span>tsapp status days
+                  </a>
+                </div></>:<>
+                <div style={window.innerWidth > 900?{width:'100%',height:'20%',textAlign:'center'}:{}} className="panel user">
+                  <a >
+                  Twifuzaga kubamenya . <br/><br/> Mwaduhamagare kuri <a href="tel:+250723960452">+250723960452</a> kugirango tumenye abo dukorana nabo neza
                   </a>
                 </div>
+                </>}
+
               </div>
             </div>
           </div>
@@ -455,7 +422,7 @@ function LandingPage() {
             </span>
               <div className="w3-modal-content">
                 <br/>
-              <center><h3 style={{marginBottom:'-5%',color:'#0274A8'}}><b>Hello</b></h3></center>
+              <center><h3 style={{marginBottom:'-5%',color:'#0274A8'}}><b>{language=="Eng"?"Click bellow to submit proof":"Tanga gihamya hano"}</b></h3></center>
                <center>
             <div style={{height:'70vh',padding:'4%'}}>
            {login?<MagicDropzone
@@ -528,6 +495,7 @@ function LandingPage() {
           <Button onClick={()=>setProof({value:"video/mp4",previews:[]})}   style={{backgroundColor:"#a80202"}} size="lg" color="info" className="w3-animate-opacity" type="button">
              <b>{language=='Eng'?"Remove your video":"Kuraho videwo  watanze"}  </b>
           </Button>
+          {message}
           </div>
               :''}
                </center>

@@ -3,8 +3,8 @@ import React,{useState} from "react";
 
 // reactstrap components
 import { Container,Button } from "reactstrap";
-import { TextField } from "@mui/material";
-
+import { TextField,Snackbar } from "@mui/material";
+import url from '../../url'
 import Alert from '@mui/material/Alert'
 import {
   Spinner
@@ -13,11 +13,10 @@ import { createTheme, ThemeProvider,IconButton } from "@mui/material";
 import { Link,useLocation } from "react-router-dom";
 // core components
 
-function IndexHeader(language) {
+function IndexHeader({language}) {
   let pageHeader = React.createRef();
   const GrandMessage=React.useRef()
   const [message,setMessage]=useState(<></>)
-  const [welcomeMessage,setWelcomeMessage]=useState(true)
   const [loading,setLoading]=useState(<></>)
   const location=useLocation()
   const [scheduleName,setScheduleName]=useState('')
@@ -26,7 +25,7 @@ function IndexHeader(language) {
   const [scheduleProblem,setScheduleProblem]=useState('')
   const schedule= async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://localhost:3000/schedule`, {
+    const response = await fetch(`http://${url}/schedule`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -42,7 +41,7 @@ function IndexHeader(language) {
     if(Responce['Message']=='success'){
       setLoading(<></>)
       setMessage(<> 
-        <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+        <Snackbar open={true} autoHideDuration={5000} onClose={()=>{setMessage(<></>)}}>
          <Alert
            onClose={setMessage(<></>)}
            severity="success"
@@ -68,7 +67,7 @@ function IndexHeader(language) {
        </>)
     }
    }
-  let message1="Iyo itiyo iva cyangwa yapfumutse,",message2='Imena amazi agera kuri 1 metero kibe Kumunsi .',message3="Kandi bidakosowe  bikaba byateza igihombo cy'amafaranga 30,000 RWF mwuko kwezi.",message4='Duhamagare tugukize icyo guhombo.'
+  let message1=language=='Kinya'?"Iyo itiyo iva cyangwa yapfumutse,":'When a pipe leaks,',message2=language=='Kinya'?'Imena amazi agera kuri 1 metero kibe Kumunsi .':"Through the leaking nose, it discharge almost a whole cubic centimeter of water ",message3=language=='Kinya'?"Kandi bidakosowe  bikaba byateza igihombo cy'amafaranga 30,000 RWF mwuko kwezi.":"And this leakage if not repaired , One can make a loss of 30,000 RWF",message4=language=='Kinya'?'Duhamagare tugukize icyo guhombo.':'Call us and we prevent such loss'
 
   const theme = createTheme({
     palette: {
@@ -77,9 +76,6 @@ function IndexHeader(language) {
       },
     },
   });
-  React.useEffect(()=>{
-    setTimeout(()=>{setWelcomeMessage(false)},7000)
-  },[])
   React.useEffect(() => {
       if (window.innerWidth > 991) {
       const updateScroll = () => {
@@ -98,8 +94,7 @@ function IndexHeader(language) {
     let cusor=document.createElement('span')
     cusor.innerText='|'
     cusor.className='w3-animate-cursor' 
-    if(location.pathname=='/')   
-    {setTimeout(()=>{ 
+      setTimeout(()=>{ 
       let currentIntext1=0
       let currentIntext2=0
       let currentIntext3=0
@@ -145,7 +140,7 @@ function IndexHeader(language) {
       
         }
       }
-      ,70)},4000)}
+      ,70)},4000)
   },[location.pathname])
   return (
     <>
@@ -163,21 +158,13 @@ function IndexHeader(language) {
        <ThemeProvider theme={theme}>
         <Container style={{display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-around'}}>
         <div className=" w3-padding" style={window.innerWidth>900?{height:'fit-content',width:'45%'}:{height:'fit-content',width:'100%'}}>
-        {welcomeMessage?<div className="w3-animate-opacity">
-          <h4 style={{height: "10%",marginBottom:'0%', color: "white"}} >{ language == "Eng"
-              ? " Welcome to Plumberswithnoborders  "
-              : "  Plumberswithnoborders tubahaye ikaze bakiriya bacu beza "}</h4>
-              <p style={window.innerWidth>900?{fontSize:'300%',marginTop:'0%',fontWeight:'bolder'}:{fontSize:'200%',marginTop:'0%',fontWeight:'bolder'}}>{ language == "Eng"
-              ? " We’re thrilled to have you with us. Get ready for best plumbing services in Rwanda and a great experience with our experts. "
-              : " Twishimiye gukorana namwe "}</p>
-         </div>
-         : <div style={welcomeMessage?{display:'none'}:{display:'block'}} className={welcomeMessage?"":"w3-animate-opacity"}>
+       <div className="w3-animate-opacity">
           <h3 style={{height: "10%",marginBottom:'0%', color: "white"}} >{ language == "Eng"
               ? " Call us "
               : "  Duhamagare kuri "}</h3>
               <Link   to={'tel:+250723960452'} style={{ textDecoration: 'none' }}><p style={window.innerWidth>900?{fontSize:'300%',marginTop:'0%',fontWeight:'bolder'}:{fontSize:'200%',marginTop:'0%',fontWeight:'bolder'}}>+250-723-960-452</p></Link>   
-         </div>  }
-          <h4 style={{height: "10%",marginBottom:'0%',textAlign:'left',fontWeight:'bolder', color: "white"}}>Waruziko!</h4>
+         </div>  
+          <h4 style={{height: "10%",marginBottom:'0%',textAlign:'left',fontWeight:'bolder', color: "white"}}>{language=='Kinya'?'Waruziko!':'Did you know?that'}</h4>
           <h5 ref={GrandMessage} style={window.innerWidth>900?{height: "10%",marginBottom:'0%',textAlign:'left',fontWeight:'bolder', color: "white"}:{height: "360px",marginBottom:'2%',textAlign:'left',fontWeight:'bolder', color: "white"}}><span className="w3-animate-cursor">|</span></h5>
           </div>
          {window.innerWidth>900&&<div className="w3-card w3-round w3-padding" style={window.innerWidth>900?{height:'fit-content',backgroundColor:'#05a4ee',width:'45%'}:{height:'fit-content',backgroundColor:'#05a4ee',width:'100%'}}>

@@ -126,12 +126,12 @@
     top: 24px;
   }
   .panel.user {
-    background-color: #fc1c3e;
+    background-color: #fc1c3e69;
   }
   .panel.user:after {
-    content: "\f167";
+    content: "\f071";
     font-size: 200px;
-    color: #ec0326;
+    color: #ec032684;
     top: 45px;
     right: 35px;
   }

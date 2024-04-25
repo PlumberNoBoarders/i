@@ -19,13 +19,31 @@ import {
   Container,
   Row,
 } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 // core components
 
-function OtpAuthenitacteForNewOtps(language) {
+function OtpAuthenitacteForNewOtps() {
+  const  getCookie=()=> {
+    let name = 'language' + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  const nav=useNavigate()
   const isPhoneNumberValid=/^[\+]?([0-9][\s]?|[0-9]?)([(][0-9]{3}[)][\s]?|[0-9]{3}[-\s\.]?)[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
   const isPasswordStrong=/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
   const [password, setPassword] = React.useState();
+  const [language,setLanguage]=React.useState(getCookie()==''?'Kinya':getCookie());
   const [loading,setLoading]=React.useState(<></>);
   const [displayOtp, setDisplayOtp] = React.useState(false);
   const [message,setMessage]=React.useState(<></>)
@@ -42,7 +60,7 @@ function OtpAuthenitacteForNewOtps(language) {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "omit", // include, *same-origin, omit
+        credentials: "include", // include, *same-origin, omit
         headers: {
           "Content-Type": "application/json",
           //  'Content-Type': 'application/x-www-form-urlencoded',
@@ -54,8 +72,10 @@ function OtpAuthenitacteForNewOtps(language) {
       const Responce = await response.json();
       if(Responce){
         setLoading(<></>)
-        if(Responce['Email']=='valid'){
+        if(Responce['Message']=='Code was sent to +250723960452'){
           setTimeout(()=>{setDisplayOtp(!displayOtp);},3000)
+        }
+        if(Responce['Email']=='valid'){
           setMessage(<> 
             <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
              <Alert
@@ -86,11 +106,11 @@ function OtpAuthenitacteForNewOtps(language) {
   }
   const otpAuthenticate=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://localhost:3000/checkOtp`, {
+    const response = await fetch(`http://${url}/checkOtp`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "omit", // include, *same-origin, omit
+      credentials: "include", // include, *same-origin, omit
       headers: {
         "Content-Type": "application/json",
         //  'Content-Type': 'application/x-www-form-urlencoded',
@@ -103,6 +123,7 @@ function OtpAuthenitacteForNewOtps(language) {
      if(Responce){
       setLoading(<></>)
       if(Responce['otp']=='valid'){
+        setTimeout(()=>{nav('/profile-page')},3000);
         setMessage(<> 
           <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
            <Alert

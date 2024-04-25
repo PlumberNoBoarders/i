@@ -22,7 +22,23 @@ import {
 
 // core components
 
-function OtpAuthenitacteForPasswordResetors(language) {
+function OtpAuthenitacteForPasswordResetors() {
+  const  getCookie=()=> {
+    let name = 'language' + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  const [language,setLanguage]=React.useState(getCookie()==''?'Kinya':getCookie());
   const isPhoneNumberValid=/^[\+]?([0-9][\s]?|[0-9]?)([(][0-9]{3}[)][\s]?|[0-9]{3}[-\s\.]?)[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
   const isPasswordStrong=/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
   const [password, setPassword] = React.useState('');

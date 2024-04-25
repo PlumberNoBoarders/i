@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect,useRef, useState } from "react";
 import "../../w3.css"
 import MagicDropzone from "react-magic-dropzone";
 import { TextField } from "@mui/material";
@@ -16,14 +16,14 @@ import {
 } from "reactstrap";
 
 
-function BasicElements({language,login}) {
-  console.log(url);
+function BasicElements({language,login,setServices}) {
   const [scheduleName,setScheduleName]=useState('')
   const [scheduleEmail,setScheduleEmail]=useState('')
   const [schedulePhone,setSchedulePhone]=useState('')
   const [scheduleProblem,setScheduleProblem]=useState('')
   const [loading,setLoading]=useState(<></>)
   const [message,setMessage]=useState(<></>)
+  const servi=useRef();
   const schedule= async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
     const response = await fetch(`http://${url}/schedule`, {
@@ -42,7 +42,7 @@ function BasicElements({language,login}) {
     if(Responce['Message']=='success'){
       setLoading(<></>)
       setMessage(<> 
-        <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+        <Snackbar open={true} autoHideDuration={5000} onClose={()=>{setMessage(<></>)}}>
          <Alert
            onClose={setMessage(<></>)}
            severity="success"
@@ -55,7 +55,7 @@ function BasicElements({language,login}) {
        </>)
     }else{
       setMessage(<> 
-        <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+        <Snackbar open={true} autoHideDuration={5000} onClose={()=>{setMessage(<></>)}}>
          <Alert
            onClose={setMessage(<></>)}
            severity="error"
@@ -75,14 +75,15 @@ function BasicElements({language,login}) {
       },
     },
   });
-
+  useEffect(()=>{
+    setServices(servi);
+  },[])
   
   return (
     <>
       <div className="section section-basic" id="basic-elements" style={{width:'100%'}}>
-        <Container>         
-          <center>
-               
+        <Container>  
+        <center>    
           <ThemeProvider theme={theme}>
           {window.innerWidth<900&& <div className="w3-card w3-round w3-padding" style={window.innerWidth>900?{height:'fit-content',backgroundColor:'#05a4ee',width:'45%'}:{height:'fit-content',backgroundColor:'#05a4ee',width:'100%',zIndex:'10000',marginTop:'-66%'}}>
           <h3 style={{height: "10%", color: "white",fontWeight:'bolder',marginBottom:'2%'}}>{ language == "Eng"
@@ -161,8 +162,8 @@ function BasicElements({language,login}) {
           </Button>
           </div>}
           </ThemeProvider>
-          </center>
-        <div id='services'>
+          </center>       
+        <div ref={servi} id='services'>
         <center><h4 className="title" style={{color:'#003C57'}}><b>{language=='Eng'?"what we offer":"Serivisi dutanga"}</b></h4></center>
         <div style={{width:'100%',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',alignItems:"center",paddingTop:'5%'}}>
         <div className=" w3-round w3-margin-top " style={{textAlign:'center',width:'100%',color:'white',cursor:'pointer',height:'fit-content',display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-around'}}>
@@ -228,6 +229,86 @@ function BasicElements({language,login}) {
          </div>
         </div>
         </div>
+        <center>    
+          <ThemeProvider theme={theme}>
+          {window.innerWidth<900&& <div className="w3-card w3-round w3-padding" style={window.innerWidth>900?{height:'fit-content',backgroundColor:'#05a4ee',width:'45%'}:{height:'fit-content',backgroundColor:'#05a4ee',width:'100%',zIndex:'10000',marginTop:'5%'}}>
+          <h3 style={{height: "10%", color: "white",fontWeight:'bolder',marginBottom:'2%'}}>{ language == "Eng"
+              ? " Shedule a service with us "
+              : "  Uzuza ifishi ikurikira  "}</h3>
+           <p style={{height: "10%",marginBottom:'0%', color: "white"}}>{ language == "Eng"
+              ? ""
+              : "  Iyi fishi iduhuza nawe mukiriya mwiza niba ukeneye servisi wayuzuza cyangwa ukaduhamagara kuri "}</p>
+              <Link   to={'tel:+250790457824'} style={{ textDecoration: 'none' }}><p style={{fontSize:'120%'}}>+250-790-457-824</p></Link>   
+         <TextField
+          style={{ width: "100%" }}
+          inputProps={{ style: { height: "10%", color: "white" } }}
+          color="secondary"
+          value={scheduleName}
+          onChange={(e)=>setScheduleName(e.target.value)}
+          type="email"
+          label={
+            language == "Eng"
+              ? " Your Name "
+              : "  Amazina yanyu "
+          }
+          />
+          
+          <br/>
+          <br/>
+         <TextField
+          style={{ width: "100%" }}
+          inputProps={{ style: { height: "10%", color: "white" } }}
+          color="secondary"
+          type="email"
+          value={scheduleEmail}
+          onChange={(e)=>setScheduleEmail(e.target.value)}
+          label={
+            language == "Eng"
+              ? " Your Email "
+              : "  Imeli yanyu "
+          }
+          />
+          <br/>
+          <br/>
+         <TextField
+          style={{ width: "100%" }}
+          inputProps={{ style: { height: "10%", color: "white" } }}
+          color="secondary"
+          value={schedulePhone}
+          onChange={(e)=>setSchedulePhone(e.target.value)}
+          label={
+            language == "Eng"
+              ? " Your Phonenumber "
+              : "  Telephone yanyu "
+          }
+          />
+          <br/>
+          <br/>
+         <TextField
+          multiline
+          style={{ width: "100%",height:'40%' }}
+          inputProps={{ style: { height: "10%", color: "white" } }}
+          color="secondary"
+          value={scheduleProblem}
+          onChange={(e)=>setScheduleProblem(e.target.value)}
+          label={
+            language == "Eng"
+              ? " The service you need (Feel free to explain) "
+              : "  Servisi mukeneye "
+          }
+          />
+          <Button
+            className="btn-neutral btn-round"
+            color="info"
+            href="#pablo"
+            onClick={(e) =>{ e.preventDefault();schedule()}}
+            size="lg"
+           >
+            {loading} {language=='Eng'?"Submit":'Tanga'}
+          </Button>
+          </div>}
+          </ThemeProvider>
+          </center>
         {message}
         </div>
      

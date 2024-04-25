@@ -5,7 +5,7 @@ import { Button, Container } from "reactstrap";
 
 // core components
 
-function LandingPageHeader(language) {
+function LandingPageHeader({language}) {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {

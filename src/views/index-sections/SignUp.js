@@ -1,5 +1,5 @@
-import React from "react";
-import { TextField,InputAdornment } from "@mui/material";
+import React,{useState} from "react";
+import { TextField,InputAdornment,Alert,Snackbar } from "@mui/material";
 import { createTheme, ThemeProvider,IconButton } from "@mui/material";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import url from '../../url'
@@ -13,15 +13,36 @@ import {
   Form,
   InputGroup,
   Container,
+  Spinner,
   Row,
 } from "reactstrap";
+import { useNavigate, useNavigation } from "react-router-dom";
 
 // core components
 
-function SignUp(language) {
+function SignUp() {
+  const nav=useNavigate()
   const isPhoneNumberValid=/^[\+]?([0-9][\s]?|[0-9]?)([(][0-9]{3}[)][\s]?|[0-9]{3}[-\s\.]?)[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
   const isPasswordStrong=/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
   const [firstFocus, setFirstFocus] = React.useState(false);
+  const [message,setMessage]=React.useState(<></>)
+  const [loading,setLoading]=React.useState(<></>)
+  const  getCookie=()=> {
+    let name = 'language' + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  const [language,setLanguage]=useState(getCookie()==''?'Kinya':getCookie());
   const [password, setPassword] = React.useState();
   const [displayOtp, setDisplayOtp] = React.useState(false);
   const [cpassword, setCpassword] = React.useState();
@@ -41,11 +62,12 @@ function SignUp(language) {
   const signup={"name":name,"password":password,"phone":phone,"Email":email}
   const otp={"code":OtpWhastapp}
   const postSignup=async ()=>{
+    setLoading(<Spinner size="sm">Loading...</Spinner>)
       const response = await fetch(`http://${url}/registerNewUser`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "omit", // include, *same-origin, omit
+        credentials: "include", // include, *same-origin, omit
         headers: {
           "Content-Type": "application/json",
           //  'Content-Type': 'application/x-www-form-urlencoded',
@@ -55,15 +77,44 @@ function SignUp(language) {
         body: JSON.stringify(signup), // body data type must match "Content-Type" header
       });
       const loginResponce = await response.json();
-      console.log(loginResponce);
+      if(loginResponce['Message']){
+        setDisplayOtp(!displayOtp);
+      }
+      if(loginResponce['Message']){
+        setLoading(<></>)
+        setMessage( <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+        <Alert
+          onClose={setMessage(<></>)}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+         {loginResponce['Message']}
+         </Alert>
+         </Snackbar>)
+      }else{
+        setLoading(<></>)
+        setMessage( <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+        <Alert
+          onClose={setMessage(<></>)}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+         {'The user with this email exists please use another email'}
+         </Alert>
+         </Snackbar>)
+      };
+   
    
   }
   const otpAuthenticate=async ()=>{
+    setLoading(<Spinner size="sm">Loading...</Spinner>)
       const response = await fetch(`http://${url}/checkOtp`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "omit", // include, *same-origin, omit
+        credentials: "include", // include, *same-origin, omit
         headers: {
           "Content-Type": "application/json",
           //  'Content-Type': 'application/x-www-form-urlencoded',
@@ -72,8 +123,33 @@ function SignUp(language) {
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: JSON.stringify(otp), // body data type must match "Content-Type" header
       });
-      const loginResponce = await response.json();
-      console.log(loginResponce);
+      const OTPResponce = await response.json();
+      if(OTPResponce['otp']=='valid'){
+        setLoading(<></>)
+       setTimeout(()=>{nav('/profile-page')},3000) 
+       setMessage( <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+       <Alert
+         onClose={setMessage(<></>)}
+         severity="success"
+         variant="filled"
+         sx={{ width: '100%' }}
+       >
+        your OTP {OTPResponce['otp']}
+        </Alert>
+        </Snackbar>)
+      }else{
+        setLoading(<></>)
+        setMessage( <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+        <Alert
+          onClose={setMessage(<></>)}
+          severity="error"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+         {OTPResponce['otp']}
+         </Alert>
+         </Snackbar>)
+      };
    
   }
   const theme = createTheme({
@@ -230,7 +306,6 @@ function SignUp(language) {
                       onClick={(e) => {
                       e.preventDefault();
                       if(password!==''&&email!==''&&phone!==''&&name!==''){
-                        setDisplayOtp(!displayOtp);
                         postSignup()
                       }else{
                         alert(`${ language == "Eng"   ? " Please fill in the required information in the form " : " Uzuza neza iyi fishi kugirango ukomeze "
@@ -239,7 +314,7 @@ function SignUp(language) {
                     }}
                       size="lg"
                     >
-                      {language == "Eng" ? "Submit" : " Tanga "}
+                      {language == "Eng" ? "Submit" : " Tanga "} {loading}
                     </Button>
                   </CardFooter>
                 </Form>
@@ -297,13 +372,14 @@ function SignUp(language) {
                         }}
                       size="lg"
                     >
-                      {language == "Eng" ? "Submit" : " Tanga Code"}
+                      {language == "Eng" ? "Submit" : " Tanga Code"} {loading}
                     </Button>
                   </CardFooter>
                 </Form>
               </Card>
             </Row>
           </Container>
+          {message}
         </ThemeProvider>
         <DarkFooter />
       </div>

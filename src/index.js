@@ -32,7 +32,6 @@ import SignUp from "./views/index-sections/SignUp";
 import OtpAuthenitacteForNewOtps from "./views/index-sections/OtpAuthenitacteForNewOtps";
 import OtpAuthenitacteForPasswordResetors from "./views/index-sections/OtpAuthenitacteForPasswordResetors";
 import LandingPage from "./views/examples/LandingPage.js";
-import BalanceSheet from "./views/examples/BalanceSheet.js";
 import ProfilePage from "./views/examples/ProfilePage.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -40,20 +39,18 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/">
+      <Route path="/plumbum">
         <Route index element={<Index />}/>
       </Route>
-      <Route path="/nucleo-icons" element={<NucleoIcons />} />
       <Route path="/landing-page" element={<LandingPage />} />
       <Route path="/profile-page" element={<ProfilePage />} />
-      <Route path="/Balance-sheet" element={<BalanceSheet />} />
       <Route path="/login-page" element={<LoginPage />} />
       <Route path="/signup-page" element={<SignUp />} />
       <Route path="/new_otp" element={<OtpAuthenitacteForNewOtps />} />
       <Route path="/reset_password" element={<OtpAuthenitacteForPasswordResetors />} />
      
 
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/plumbum" replace />} />
     </Routes>
   </BrowserRouter>
 );

@@ -12,13 +12,18 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
-function IndexNavbar(language) {
+function IndexNavbar({language,services,photos, monetize}) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const location=useLocation()
-  const servisi = React.useRef(null)
+  let service=''
+  let monetiz=''
+  let pictures=''
   const nav = useNavigate();
-  React.useEffect(() => {  
+  React.useEffect(() => {
+    service=services;
+    monetiz=monetize;
+    pictures=photos
     const updateNavbarColor = () => {
       if (
         document.documentElement.scrollTop > 59 ||
@@ -51,7 +56,7 @@ function IndexNavbar(language) {
       <Navbar className={"fixed-top " + navbarColor} style={{backgroundColor:'#0274A8',height:'10%'}} expand="md">
         <Container>
           <div className="navbar-translate">
-            <Link to={'/'}>
+            <Link to={'/plumbum'}>
             <NavbarBrand
               id="navbar-brand"
             >
@@ -84,15 +89,9 @@ function IndexNavbar(language) {
                 
                   onClick={(e) => {
                     e.preventDefault(); 
-                    if(location.pathname!=='/'){nav('/')}
-                    setCollapseOpen(!collapseOpen)
-
-                   setTimeout(()=>{
-                    document
-                    .getElementById("services")
-                    .scrollIntoView();
-                   },200)
-                  
+                    if(location.pathname!=='/plumbum'){nav('/plumbum')}
+                    setCollapseOpen(false)
+                     service.current.scrollIntoView();
                   }}
                   style={{ display:'flex' , flexDirection:'row',cursor:'pointer'}} 
                 >
@@ -104,30 +103,22 @@ function IndexNavbar(language) {
                 
                   onClick={(e) => {
                     e.preventDefault();
-                    if(location.pathname!=='/'){nav('/')}
+                    if(location.pathname!=='/plumbum'){nav('/plumbum')}
                     setCollapseOpen(!collapseOpen)
-                   setTimeout(()=>{
-                    document
-                      .getElementById("Monetize")
-                      .scrollIntoView();
-                   },200)
+                    monetiz.current.scrollIntoView();
                   }}
                   style={{ display:'flex' , flexDirection:'row',cursor:'pointer'}} 
                 >
                  <i style={{fontSize:'14px',padding:'5%'}} className="fa-solid fa-rectangle-ad"></i>
-                  <p >{language=='Eng'?'Monitize':'Amamaza'}</p>
+                  <p >{language=='Eng'?'Commissioners':'Komissiyoneri'}</p>
               </NavLink>
               <NavLink
                 
                   onClick={(e) => {
                     e.preventDefault(); 
-                    if(location.pathname!=='/'){nav('/')}
-                    setCollapseOpen(!collapseOpen)
-                   setTimeout(()=>{
-                    document
-                      .getElementById("Pictures")
-                      .scrollIntoView();
-                   },200)
+                     if(location.pathname=='/plumbum'){nav('/plumbum')}
+                    setCollapseOpen(false)
+                    pictures.current.scrollIntoView();
                   }}
                   style={{ display:'flex' , flexDirection:'row',cursor:'pointer'}} 
                 >

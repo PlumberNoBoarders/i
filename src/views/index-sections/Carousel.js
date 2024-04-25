@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useRef} from "react";
 
 // reactstrap components
 import {
@@ -14,25 +14,26 @@ import {
 
 const items = [
   {
-    src: require("assets/img/bg1.jpg"),
-    altText: "Nature, United States",
-    caption: "Nature, United States"
+    src: require("assets/img/Brown Autumn Photo Collage.jpg"),
+    altText: "Numwuga dukunze",
+    caption: "Numwuga dukunze"
   },
   {
-    src: require("assets/img/bg3.jpg"),
-    altText: "Somewhere Beyond, United States",
-    caption: "Somewhere Beyond, United States"
+    src: require("assets/img/Beige Minimalist Mood Photo Collage.jpg"),
+    altText: "Dukorera hamwe ",
+    caption: "Dukorera hamwe "
   },
   {
-    src: require("assets/img/bg4.jpg"),
-    altText: "Yellowstone National Park, United States",
-    caption: "Yellowstone National Park, United States"
+    src: require("assets/img/IMG-20240415-WA0003.jpg"),
+    altText: "Mukazi Kose",
+    caption: "Mukazi Kose"
   }
 ];
 
-function CarouselSection(language) {
+function CarouselSection({language,setPhotos}) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [animating, setAnimating] = React.useState(false);
+  const pics=useRef()
   const onExiting = () => {
     setAnimating(true);
   };
@@ -53,15 +54,15 @@ function CarouselSection(language) {
     if (animating) return;
     setActiveIndex(newIndex);
   };
+  useEffect(()=>{
+    setPhotos(pics)
+  },[])
   return (
     <>
-      <div  className="section" id="Pictures">
+      <div  className="section" ref={pics}  id="Pictures">
         <Container>
-          <div >
-            <h2 className="w3-monospace w3-center">{language=='Eng'?"Images":' Amafoto '}</h2>
-          </div>
           <Row className="justify-content-center">
-            <Col lg="8" md="12">
+            <Col lg="10"  md="12">
               <Carousel
                 activeIndex={activeIndex}
                 next={next}
@@ -79,7 +80,7 @@ function CarouselSection(language) {
                       onExited={onExited}
                       key={item.src}
                     >
-                      <img src={item.src} alt={item.altText} />
+                      <img  src={item.src} alt={item.altText} />
                       <div className="carousel-caption d-none d-md-block">
                         <h5>{item.caption}</h5>
                       </div>

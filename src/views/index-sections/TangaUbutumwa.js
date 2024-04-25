@@ -25,7 +25,7 @@ import {
 
 // core components
 
-function TangaUbutumwa(language) {
+function TangaUbutumwa({language}) {
   const [ubutumwa, setUbutumwa] = React.useState('');
   const [loading, setLoading] = React.useState(<></>);
   const [message, setMessage] = React.useState(<></>);
@@ -47,20 +47,20 @@ function TangaUbutumwa(language) {
     if(Responce['Message']=='success'){
       setLoading(<></>)
       setMessage(<> 
-        <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+        <Snackbar open={true} autoHideDuration={5000} onClose={()=>{setMessage(<></>)}}>
          <Alert
            onClose={setMessage(<></>)}
            severity="success"
            variant="filled"
            sx={{ width: '100%' }}
          >
-           Murakoze kutugezaho inyunganizi , igitekerezo , Inama ,n' ibindi bitwerekeyeho, bitweretse ko mudushyigikiye , turabashimiye 
+          {language=='Kinya'?"Murakoze kutugezaho inyunganizi , igitekerezo , Inama ,n' ibindi bitwerekeyeho, bitweretse ko mudushyigikiye , turabashimiye":" Thank you for your suggestion , idea and advice .We appriciate your help"}
          </Alert>
        </Snackbar>
        </>)
     }else{
       setMessage(<> 
-        <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
+        <Snackbar open={true} autoHideDuration={5000} onClose={()=>{setMessage(<></>)}}>
          <Alert
            onClose={setMessage(<></>)}
            severity="error"
@@ -85,7 +85,7 @@ function TangaUbutumwa(language) {
       <div
         className="section section-signup"
         style={{
-          backgroundImage: "url(" + require("assets/img/bg11.jpg") + ")",
+          backgroundImage: "url(" + require("assets/img/OurOffice.png") + ")",
           backgroundSize: "cover",
           backgroundPosition: "top center",
           minHeight: "700px"

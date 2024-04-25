@@ -18,6 +18,24 @@ function Images() {
                   src={require("assets/img/hero-image-1.png")}
                 ></img>
               </div>
+              <div className="hero-images-container">
+                <img
+                  alt="..."
+                  src={require("assets/img/hero-image-1.png")}
+                ></img>
+              </div>
+              <div className="hero-images-container">
+                <img
+                  alt="..."
+                  src={require("assets/img/hero-image-1.png")}
+                ></img>
+              </div>
+              <div className="hero-images-container">
+                <img
+                  alt="..."
+                  src={require("assets/img/hero-image-1.png")}
+                ></img>
+              </div>
               <div className="hero-images-container-1">
                 <img
                   alt="..."

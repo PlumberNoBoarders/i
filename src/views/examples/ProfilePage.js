@@ -14,6 +14,7 @@ import {
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert'
 import '../../w3.css'
+import url from '../../url'
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
@@ -50,7 +51,7 @@ function ProfilePage() {
   });
   const UpdateAcceptedTerms = async () => {
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://localhost:3000/UpdateGrowthTerms`, {
+    const response = await fetch(`http://${url}/UpdateGrowthTerms`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -82,10 +83,10 @@ function ProfilePage() {
     }
   }
   const postCommisions= async ()=>{
-    setCommisions([...commisions,{ CommissionName: "Munaziri Bienaime",CommissionPhoneNumber :  "0790457824",CommissionServiceDetails : "Arashaka ravabon" ,CommissionStatus  :   "InProgress"}])
+    setCommisions([...commisions,{ CommissionName:commissionClientname,CommissionPhoneNumber :commissionClientPhone,CommissionServiceDetails :commissionClientDiscription,CommissionStatus  :   "InProgress"}])
    if(commissionClientname!==''&&commissionClientPhone!==''&&commissionClientDiscription!==''){
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://localhost:3000/NewCommision`, {
+    const response = await fetch(`http://${url}/NewCommision`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -147,7 +148,7 @@ function ProfilePage() {
   }
   const UpdateInfo = async () => {
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://localhost:3000/UpdateInfo`, {
+    const response = await fetch(`http://${url}/UpdateInfo`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -180,7 +181,7 @@ function ProfilePage() {
   }
   const UpdateAddress = async () => {
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://localhost:3000/UpdateAddress`, {
+    const response = await fetch(`http://${url}/UpdateAddress`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -213,7 +214,7 @@ function ProfilePage() {
   }
   const UpdatePaymentNumber = async () => {
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://localhost:3000/UpdatePaymentNumber`, {
+    const response = await fetch(`http://${url}/UpdatePaymentNumber`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -246,7 +247,7 @@ function ProfilePage() {
   }
   React.useEffect(() => {
     const FetchUser = (async () => {
-      const response = await fetch(`http://localhost:3000/user`, {
+      const response = await fetch(`http://${url}/user`, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -262,7 +263,7 @@ function ProfilePage() {
       if (userResponce !== 'not logged In') {
         setUser(userResponce);
         (async () => {
-          const response = await fetch(`http://localhost:3000/CommisionsCurrentUser`, {
+          const response = await fetch(`http://${url}/CommisionsCurrentUser`, {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           mode: "cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

@@ -16,6 +16,7 @@ import {
   Container,
   Col
 } from "reactstrap";
+import url from '../../url'
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert'
 // core components
@@ -39,7 +40,7 @@ function LoginPage() {
 }
   const loginFunc=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-      const response = await fetch(`http://localhost:3000/login`, {
+      const response = await fetch(`http://${url}/login`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -81,6 +82,11 @@ function LoginPage() {
     }
      }
   }
+  const loginGoogle= async ()=>{
+    setLoading(<Spinner size="sm">Loading...</Spinner>)
+    const loginTab=window.open(`http://${url}/auth/google`);
+    console.log(loginTab)
+  }
   React.useEffect(() => {
     document.body.classList.add("login-page");
     document.body.classList.add("sidebar-collapse");
@@ -115,16 +121,16 @@ function LoginPage() {
                       ></img>
                     </div>
                   </CardHeader>
-                  <Button
+                  {/* <Button
                       block
                       className="btn-round"
                       color="info"
                       href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={(e) => {e.preventDefault();loginGoogle()}}
                       size="lg"
                     >
-                      Login with google <i class="fa-brands fa-google"></i>
-                    </Button>
+                      Login with google <i class="fa-brands fa-google"></i> {loading}
+                    </Button> */}
                   <CardBody>
                     <InputGroup
                       className={
