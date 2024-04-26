@@ -107,7 +107,7 @@ function Index() {
         </div>
         <div style={getCookie()==''||closed?{display:"block"}:{display:"none"}} className="w3-modal">
           <div style={window.innerWidth>900?{width:'40%',backgroundColor:'#1d91c7',color:'white',marginTop:'10%'}:{width:'40%',backgroundColor:'#1d91c7',color:'white',marginTop:'40%'}} className="w3-modal-content w3-card w3-round w3-padding w3-animate-opacity">
-          <center><img style={{width:'40%'}} src={require("assets/img/LongLogo.png")} alt="logo"/></center>
+          <center><img style={{width:'40%'}} src={require("assets/img/LongLogo.avif")} alt="logo"/></center>
           <center><h5>Murakaza neza .... You are welcome</h5></center>
           <center>English <Switch  onChange={handleChange} {...label} checked={checkeed} color="default"/> Kinyarwanda</center>
           <center><p style={{fontSize:'15px'}}>If you preffer the defaul language selected, <a onClick={closePopup} style={{color:'red',cursor:'pointer'}}>close</a> this popup</p></center>

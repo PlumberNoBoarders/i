@@ -60,7 +60,7 @@ function IndexNavbar({language,services,photos, monetize}) {
             <NavbarBrand
               id="navbar-brand"
             >
-             <img style={window.innerWidth > 900?{width:'20%',height:'20%',objectFit:'cover'}:{width:'30%',height:'30%',marginTop:'-12%',objectFit:'cover'}} src={require("assets/img/LongLogo.png")}/>
+             <img style={window.innerWidth > 900?{width:'20%',height:'20%',objectFit:'cover'}:{width:'30%',height:'30%',marginTop:'-12%',objectFit:'cover'}} src={require("assets/img/LongLogo.avif")}/>
             </NavbarBrand>
             </Link>
             <UncontrolledTooltip target="#navbar-brand">
