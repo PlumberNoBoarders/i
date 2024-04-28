@@ -20,7 +20,7 @@ function Tabs({language,setMonetize}) {
               <h5 className="category">{language=='Eng'?"Follow the video":"Bikorwa bite , Kurikira videwo ikurikira"}</h5>
               <center>
               <div style={window.innerWidth > 900?{width:'35%',aspectRatio:'1/1.5',borderRadius:'7% 93% 5% 95% / 92% 8% 92% 8%',textAlign:'center',background:'black',color:'black'}:{width:'100%',aspectRatio:'1.7/1',borderRadius:'7% 93% 5% 95% / 92% 8% 92% 8%',textAlign:'center',background:'black',color:'black'}}>
-              <iframe style={{height:'100%',width:'100%',borderRadius:'inherit'}} src="https://www.youtube.com/embed/KHtJcZgRTdc?si=fcCTSO_1BtmwKMlR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe style={{height:'100%',width:'100%',borderRadius:'inherit'}} src="https://www.youtube.com/embed" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               </div>
               </center>
         </Container>

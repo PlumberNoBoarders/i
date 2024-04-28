@@ -1,3 +1,3 @@
-const url='34.16.223.151:3000'
+const url='34.125.9.44'
 
 module.exports=url;  
