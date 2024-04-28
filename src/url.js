@@ -1,3 +1,3 @@
-const url='34.125.9.44'
+const url='service.plumberswithnoborders.works'
 
 module.exports=url;  
