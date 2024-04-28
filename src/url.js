@@ -1,3 +1,3 @@
-const url='localhost:3000'
+const url='service.plumberswithnoborders.works'
 
 module.exports=url;  
