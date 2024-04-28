@@ -87,7 +87,7 @@ function LandingPage() {
   const finalGihamya= async()=>{
    const data ={"Video":gihamyaVideoFile,'userName':user.userName,'phoneNumber':user.phoneNumber}
 
-    const response = await fetch(`http://${url}/gihamya`, {
+    const response = await fetch(`https://${url}/gihamya`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -132,7 +132,7 @@ function LandingPage() {
   
   React.useEffect(() => {
     const FetchAdverts=(async ()=>{
-      const response = await fetch(`http://${url}/getAdvert`, {
+      const response = await fetch(`https://${url}/getAdvert`, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -155,7 +155,7 @@ function LandingPage() {
    
      })()
     const FetchUser=(async ()=>{
-      const response = await fetch(`http://${url}/user`, {
+      const response = await fetch(`https://${url}/user`, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -230,7 +230,7 @@ function LandingPage() {
               }
               className="w3-round"
             >
-                            <iframe style={{height:'100%',width:'100%',borderRadius:'inherit'}} src="https://www.youtube.com/embed/KHtJcZgRTdc?si=fcCTSO_1BtmwKMlR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe style={{height:'100%',width:'100%',borderRadius:'inherit'}} src="httpss://www.youtube.com/embed/KHtJcZgRTdc?si=fcCTSO_1BtmwKMlR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -274,12 +274,12 @@ function LandingPage() {
                 borderRadius: "inherit",
                 padding: "5%",
               }}
-              src={'http://'+url+advert.advertUrl}
+              src={'https://'+url+advert.advertUrl}
             />
 
             {window.innerWidth > 900 ? (
               <div className="hoverToactivite">
-                <i className="fa-solid fa-circle-down" onClick={()=>{window.open('http://'+url+advert.advertUrl)}} title="download"></i>{" "}
+                <i className="fa-solid fa-circle-down" onClick={()=>{window.open('https://'+url+advert.advertUrl)}} title="download"></i>{" "}
                 <i
                   className="fa-solid fa-tv"
                   onClick={() => setModalIopen(!modalIopen)}
@@ -288,7 +288,7 @@ function LandingPage() {
               </div>
             ) : (
               <div className="hoverToactiviteMobile">
-                <i className="fa-solid fa-circle-down" onClick={()=>{window.open('http://'+url+advert.advertUrl)}}  title="download"></i>{" "}
+                <i className="fa-solid fa-circle-down" onClick={()=>{window.open('https://'+url+advert.advertUrl)}}  title="download"></i>{" "}
                 <i
                   className="fa-solid fa-tv"
                   onClick={() => setModalIopen(!modalIopen)}
@@ -335,7 +335,7 @@ function LandingPage() {
                   objectFit: "cover",
                   borderRadius: "inherit",
                 }}
-                src={'http://'+url+advert.advertUrl}
+                src={'https://'+url+advert.advertUrl}
               />
             </div>
           </div>

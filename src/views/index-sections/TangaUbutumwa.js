@@ -31,7 +31,7 @@ function TangaUbutumwa({language}) {
   const [message, setMessage] = React.useState(<></>);
   const tangaUbutumwa= async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://${url}/TangaUbutumwa`, {
+    const response = await fetch(`https://${url}/TangaUbutumwa`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

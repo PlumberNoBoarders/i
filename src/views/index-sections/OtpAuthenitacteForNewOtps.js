@@ -56,7 +56,7 @@ function OtpAuthenitacteForNewOtps() {
 
   const submitNewOtp=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-      const response = await fetch(`http://${url}/whatsappTwofactorAuth`, {
+      const response = await fetch(`https://${url}/whatsappTwofactorAuth`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -106,7 +106,7 @@ function OtpAuthenitacteForNewOtps() {
   }
   const otpAuthenticate=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://${url}/checkOtp`, {
+    const response = await fetch(`https://${url}/checkOtp`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

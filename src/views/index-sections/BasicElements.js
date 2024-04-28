@@ -26,7 +26,7 @@ function BasicElements({language,login,setServices}) {
   const servi=useRef();
   const schedule= async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://${url}/schedule`, {
+    const response = await fetch(`https://${url}/schedule`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

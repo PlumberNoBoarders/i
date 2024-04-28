@@ -52,7 +52,7 @@ function OtpAuthenitacteForPasswordResetors() {
   const step_3={"phone":phone,"code":OtpWhastapp,"password":password}
   const reset_1=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-      const response = await fetch(`http://${url}/resetpassword_1`, {
+      const response = await fetch(`https://${url}/resetpassword_1`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -101,7 +101,7 @@ function OtpAuthenitacteForPasswordResetors() {
   }
   const reset_2=async ()=>{
       setLoading(<Spinner size="sm">Loading...</Spinner>)
-      const response = await fetch(`http://${url}/checkOtp`, {
+      const response = await fetch(`https://${url}/checkOtp`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -149,7 +149,7 @@ function OtpAuthenitacteForPasswordResetors() {
   }
   const reset_3=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-      const response = await fetch(`http://${url}/resetpassword_3`, {
+      const response = await fetch(`https://${url}/resetpassword_3`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

@@ -51,7 +51,7 @@ function ProfilePage() {
   });
   const UpdateAcceptedTerms = async () => {
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://${url}/UpdateGrowthTerms`, {
+    const response = await fetch(`https://${url}/UpdateGrowthTerms`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -86,7 +86,7 @@ function ProfilePage() {
     setCommisions([...commisions,{ CommissionName:commissionClientname,CommissionPhoneNumber :commissionClientPhone,CommissionServiceDetails :commissionClientDiscription,CommissionStatus  :   "InProgress"}])
    if(commissionClientname!==''&&commissionClientPhone!==''&&commissionClientDiscription!==''){
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://${url}/NewCommision`, {
+    const response = await fetch(`https://${url}/NewCommision`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -148,7 +148,7 @@ function ProfilePage() {
   }
   const UpdateInfo = async () => {
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://${url}/UpdateInfo`, {
+    const response = await fetch(`https://${url}/UpdateInfo`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -181,7 +181,7 @@ function ProfilePage() {
   }
   const UpdateAddress = async () => {
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://${url}/UpdateAddress`, {
+    const response = await fetch(`https://${url}/UpdateAddress`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -214,7 +214,7 @@ function ProfilePage() {
   }
   const UpdatePaymentNumber = async () => {
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const response = await fetch(`http://${url}/UpdatePaymentNumber`, {
+    const response = await fetch(`https://${url}/UpdatePaymentNumber`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -247,7 +247,7 @@ function ProfilePage() {
   }
   React.useEffect(() => {
     const FetchUser = (async () => {
-      const response = await fetch(`http://${url}/user`, {
+      const response = await fetch(`https://${url}/user`, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -263,7 +263,7 @@ function ProfilePage() {
       if (userResponce !== 'not logged In') {
         setUser(userResponce);
         (async () => {
-          const response = await fetch(`http://${url}/CommisionsCurrentUser`, {
+          const response = await fetch(`https://${url}/CommisionsCurrentUser`, {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           mode: "cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

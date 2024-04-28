@@ -63,7 +63,7 @@ function SignUp() {
   const otp={"code":OtpWhastapp}
   const postSignup=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-      const response = await fetch(`http://${url}/registerNewUser`, {
+      const response = await fetch(`https://${url}/registerNewUser`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -110,7 +110,7 @@ function SignUp() {
   }
   const otpAuthenticate=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-      const response = await fetch(`http://${url}/checkOtp`, {
+      const response = await fetch(`https://${url}/checkOtp`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

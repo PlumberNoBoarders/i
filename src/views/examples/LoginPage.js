@@ -40,7 +40,7 @@ function LoginPage() {
 }
   const loginFunc=async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-      const response = await fetch(`http://${url}/login`, {
+      const response = await fetch(`https://${url}/login`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -84,7 +84,7 @@ function LoginPage() {
   }
   const loginGoogle= async ()=>{
     setLoading(<Spinner size="sm">Loading...</Spinner>)
-    const loginTab=window.open(`http://${url}/auth/google`);
+    const loginTab=window.open(`https://${url}/auth/google`);
     console.log(loginTab)
   }
   React.useEffect(() => {
