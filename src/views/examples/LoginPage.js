@@ -22,7 +22,7 @@ import Alert from '@mui/material/Alert'
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [firstFocus, setFirstFocus] = React.useState(false);
@@ -31,6 +31,7 @@ function LoginPage() {
   const [loading,setLoading]=React.useState(<></>)
   const [email,setEmail]=React.useState('')
   const [password,setPassword]=React.useState('')
+  const nav = useNavigate();
   const loginData={"Email":email,"password":password}
   function setCookie(cname, cvalue, exdays) {
   const d = new Date();
@@ -58,7 +59,8 @@ function LoginPage() {
       setLoading(<></>)
       if(result['Message']=='Logged in')
       {
-        setCookie(result['cName'],result['cValue'],result['days'])
+        nav('/profile-page');
+        setCookie(result['cName'],result['cValue'],result['days']);
         setMessage(<Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
       <Alert
         onClose={setMessage(<></>)}
