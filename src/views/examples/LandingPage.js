@@ -46,6 +46,22 @@ function LandingPage() {
     }
     return "";
   }
+  const getCookie2=(cname)=>{
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   const [language,setLanguage]=React.useState(getCookie()==''?'Kinya':getCookie());
   function blobToBase64(blob) {
     return new Promise((resolve, _) => {
@@ -144,24 +160,29 @@ function LandingPage() {
       
    
      })()
-    const FetchUser=(async ()=>{
+
+     const FetchUser=(async ()=>{
       const response = await fetch(`https://${url}/user`, {
-        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'include', // include, *same-origin, omit
+        credentials: "include", // include, *same-origin, omit
         headers: {
-          "Content-Type": "text/plain",
-          "Access-Control-Allow-Credentials":true
+          "Content-Type": "application/json",
+          //  'Content-Type': 'application/x-www-form-urlencoded',
         },
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify({a121200909:getCookie2('121200909')}) // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       });
       const userResponce = await response.json();
-      if(userResponce.loginStatus!=='not logged In'){
-         setLogin(true);
-         setUser(userResponce)
+      if(userResponce){
+        if(userResponce.loginStatus!=='not logged In'){
+          setLogin(true);
+          setUser(userResponce)
+       }
       }
+      
    
      })()
     document.body.classList.add("landing-page");
