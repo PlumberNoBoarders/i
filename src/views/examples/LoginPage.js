@@ -59,7 +59,7 @@ function LoginPage() {
       setLoading(<></>)
       if(result['Message']=='Logged in')
       {
-        nav('/profile-page');
+        setTimeout(()=>{nav('/profile-page')},2000);
         setCookie(result['cName'],result['cValue'],result['days']);
         setMessage(<Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
       <Alert
