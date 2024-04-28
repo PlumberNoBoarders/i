@@ -126,7 +126,7 @@ function SignUp() {
       const OTPResponce = await response.json();
       if(OTPResponce['otp']=='valid'){
         setLoading(<></>)
-       setTimeout(()=>{nav('/profile-page')},3000) 
+       setTimeout(()=>{nav('/login-page')},3000) 
        setMessage( <Snackbar open={true} autoHideDuration={2000} onClose={()=>{setMessage(<></>)}}>
        <Alert
          onClose={setMessage(<></>)}

@@ -196,17 +196,19 @@ function LoginPage() {
                       </h6>
                     </div>
                     </Link>
+                    <Link to={'/reset_password'}>
                     <div className="pull-right">
                       <h6>
                         <a
                           className="link"
-                          href="#pablo"
+                          href="/reset_password"
                           onClick={(e) => e.preventDefault()}
                         >
                          Reset password
                         </a>
                       </h6>
                     </div>
+                    </Link>
                   </CardFooter>
                 </Form>
               </Card>
