@@ -24,11 +24,9 @@ function LandingPage() {
   const [login, setLogin] = React.useState(true);
   const [user,setUser]=useState({})
   const [message,setMessage]=useState(<></>)
-  const [videoDurationExceeded,setVideoDurationExceeded]=useState(false)
   const [gihamyaVideoFile,setGihamyaVideoFile]=React.useState('')
-  const checkVideoDuration=useRef(null);
   const [proof,setProof]=useState({
-    value: "video/mp4",
+    value: "image/jpeg, image/png,image/avif, .avif, .jpg, .jpeg, .png",
     previews: [].slice(0,1),
   })
   const [modalIopenOne, setModalIopenOne] = React.useState(false);
@@ -63,13 +61,6 @@ function LandingPage() {
       previews: newPreviews,
     });
     setTimeout(()=>{
-      console.log(checkVideoDuration.current.duration);
-      if(checkVideoDuration.current.duration > 15){
-        setVideoDurationExceeded(!videoDurationExceeded);
-        setProof({value:"video/mp4",previews:[]});
-        window.alert("The video's duration exceeds 15 seconds , It will not be uploaded");
-       }
-      if(!videoDurationExceeded){
         newPreviews.map((v)=>{
           fetch(v).then(function(response) {
             return response.blob();
@@ -81,11 +72,10 @@ function LandingPage() {
         
           });
         })
-       }
     },100)
   };
   const finalGihamya= async()=>{
-   const data ={"Video":gihamyaVideoFile,'userName':user.userName,'phoneNumber':user.phoneNumber}
+   const data ={"Pic":gihamyaVideoFile,'userName':user.userName,'phoneNumber':user.phoneNumber}
 
     const response = await fetch(`https://${url}/gihamya`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -456,12 +446,8 @@ function LandingPage() {
             >
               {proof.previews.length > 0
                 ? proof.previews.map((v, i) => (
-                    <video
-                      controls
-                      muted
-                      autoPlay
+                    <img
                       key={i}
-                      ref={checkVideoDuration}
                       className="w3-animate-opacity"
                       alt=""
                       style={window.innerWidth > 900?{
@@ -482,7 +468,7 @@ function LandingPage() {
                       src={v}
                     />
                   ))
-                : <p style={window.innerWidth > 900?{textAlign:'center'}:{width:'90%',textAlign:'center'}}>{language=='Eng'?"Click to choose or Drag and drop proof video ":"kanda hano uhitemo videwo ya gihamya"}</p>}
+                : <p style={window.innerWidth > 900?{textAlign:'center'}:{width:'90%',textAlign:'center'}}>{language=='Eng'?"Click to choose or Drag and drop proof screen-shot ":"kanda hano uhitemo screen-shot ya gihamya"}</p>}
             </div>
           </MagicDropzone>:<h5 style={{color:'#003C57',width:'80%'}}><b>{language=="Eng"?"login to have access":"Injira muri konti yanyu cyangwa ufunugure indi kugirango ubone uburyo . "}</b></h5>}
           </div>
