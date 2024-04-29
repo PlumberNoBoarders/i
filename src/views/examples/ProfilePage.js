@@ -25,6 +25,7 @@ function ProfilePage() {
   const commisionsRef=useRef()
   const [language, setLanguage] = useState('Kinya');
   const [user, setUser] = useState('');
+  const [login,setLogin]= useState('');
   const [commisions,setCommisions]= useState([])
   const [acceptedTermsAndConditions, setAcceptedTermsAndConditions] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -277,7 +278,7 @@ function ProfilePage() {
       if(userResponce){
         if(userResponce.loginStatus!=='not logged In'){
           setLogin(true);
-          setUser(userResponce)
+          setUser(userResponce.user)
        }
       }
       

@@ -89,7 +89,7 @@ function Index() {
       if(userResponce){
         if(userResponce.loginStatus!=='not logged In'){
           setLogin(true);
-          setUser(userResponce)
+          setUser(userResponce.user)
        }
       }
       
