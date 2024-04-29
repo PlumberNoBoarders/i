@@ -66,10 +66,9 @@ function Index() {
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'include', // include, *same-origin, omit
         headers: {
-          "Content-Type": "text/plain",
-        },
-        redirect: "follow", // manual, *follow, error
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
       });
       const userResponce = await response.json();
       if(userResponce){
