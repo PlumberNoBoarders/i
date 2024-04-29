@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/plumbum/static/css/main.41a5133b.css",
-    "main.js": "/plumbum/static/js/main.7fc2c6ed.js",
+    "main.js": "/plumbum/static/js/main.70e3a3ed.js",
     "static/media/Brown Autumn Photo Collage.jpg": "/plumbum/static/media/Brown Autumn Photo Collage.3c6aecb20f1c742bb7d9.jpg",
     "static/media/Beige Minimalist Mood Photo Collage.jpg": "/plumbum/static/media/Beige Minimalist Mood Photo Collage.27d45fbe07d83128d237.jpg",
     "static/media/OurOffice.png": "/plumbum/static/media/OurOffice.43e30667c895696cf8ea.png",
@@ -27,6 +27,6 @@
   },
   "entrypoints": [
     "static/css/main.41a5133b.css",
-    "static/js/main.7fc2c6ed.js"
+    "static/js/main.70e3a3ed.js"
   ]
 }
