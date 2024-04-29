@@ -57,7 +57,21 @@ function Index() {
   setCookie('Kinya');
   setClosed(!closed)
  }
- 
+ const  getCookieUser=()=> {
+  let name = '121200909' + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
   React.useEffect(() => {
     const FetchUser=(async ()=>{
       const response = await fetch(`https://${url}/user`, {
@@ -69,7 +83,7 @@ function Index() {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body:JSON.stringify({'hello':'hewwe'})
+        body:JSON.stringify({'hello':getCookieUser()})
       });
       const userResponce = await response.json();
       if(userResponce){
