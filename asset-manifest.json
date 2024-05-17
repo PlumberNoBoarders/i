@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/i/static/css/main.54ba4121.css",
-    "main.js": "/i/static/js/main.64cf3220.js",
+    "main.js": "/i/static/js/main.7ae87809.js",
     "static/media/Brown Autumn Photo Collage.jpg": "/i/static/media/Brown Autumn Photo Collage.3c6aecb20f1c742bb7d9.jpg",
     "static/media/Beige Minimalist Mood Photo Collage.jpg": "/i/static/media/Beige Minimalist Mood Photo Collage.27d45fbe07d83128d237.jpg",
     "static/media/OurOffice.png": "/i/static/media/OurOffice.43e30667c895696cf8ea.png",
@@ -27,6 +27,6 @@
   },
   "entrypoints": [
     "static/css/main.54ba4121.css",
-    "static/js/main.64cf3220.js"
+    "static/js/main.7ae87809.js"
   ]
 }
